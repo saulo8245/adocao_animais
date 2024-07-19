@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/animal_timeline_screen.dart';
+import 'services/auth_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AuthService.loadToken();
   runApp(DogDonationApp());
 }
 
@@ -13,7 +17,7 @@ class DogDonationApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: AuthService.isLoggedIn() ? AnimalTimelineScreen() : LoginScreen(),
     );
   }
 }
